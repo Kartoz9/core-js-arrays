@@ -308,11 +308,11 @@ function createNDimensionalArray(n, size) {
 function flattenArray(nestedArray) {
   let flattenedArray = [];
 
-  for (const element of nestedArray) {
-    if (Array.isArray(element)) {
-      flattenedArray = flattenedArray.concat(flattenArray(element));
+  for (let i = 0; i < nestedArray.length; i + 1) {
+    if (Array.isArray(i)) {
+      flattenedArray = flattenedArray.concat(flattenArray(i));
     } else {
-      flattenedArray.push(element);
+      flattenedArray.push(i);
     }
   }
 
@@ -602,14 +602,15 @@ function shiftArray(arr, n) {
   if (length === 0) {
     return [];
   }
+  let n2 = n;
+  const nLength = n2 % length;
+  n2 %= length;
 
-  n %= length;
-
-  if (n < 0) {
-    return arr.slice(-n).concat(arr.slice(0, length + n));
+  if (nLength < 0) {
+    return arr.slice(-nLength).concat(arr.slice(0, length + nLength));
   }
-  if (n > 0) {
-    return arr.slice(length - n).concat(arr.slice(0, length - n));
+  if (nLength > 0) {
+    return arr.slice(length - nLength).concat(arr.slice(0, length - nLength));
   }
 
   return arr.slice();
